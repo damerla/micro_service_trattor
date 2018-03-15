@@ -1,0 +1,36 @@
+/*!
+ * Start Bootstrap - Bootstrap Admin Theme (http://startbootstrap.com)
+ * Code licensed under the Apache License v2.0.
+ * For details, see http://www.apache.org/licenses/LICENSE-2.0.
+ */
+
+body {
+	background-color: #f8f8f8;
+	position: relative;
+}
+#wrapper {
+	width: 100%;
+}
+#page-wrapper {
+	padding: 0px;
+	/*min-height: 568px;*/
+	background-color: #fff;
+}
+ @media(min-width:768px) {
+#page-wrapper {
+	position: inherit;
+	margin: 0 0 0 253px;
+}
+}
+
+ @media(min-width:768px) {
+.sidebar {
+	z-index: 1;
+	position: absolute;
+	width: 250px;
+	background:#fff !important;
+	border-right:1px solid #ccc
+}
+
+}
+
