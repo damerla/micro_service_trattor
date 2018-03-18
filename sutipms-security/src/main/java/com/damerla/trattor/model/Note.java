@@ -16,7 +16,9 @@ import java.util.Date;
 @JsonIgnoreProperties(value = {"createdAt", "updatedAt"}, 
         allowGetters = true)
 public class Note implements Serializable {
-    @Id
+	private static final long serialVersionUID = -2867057579099780772L;
+
+	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 

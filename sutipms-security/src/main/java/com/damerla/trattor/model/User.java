@@ -1,14 +1,19 @@
 package com.damerla.trattor.model;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+
 
 /**
  * 
@@ -47,7 +52,12 @@ public class User {
 	private boolean isActive;
 	@NotNull
 	@Column(name = "user_type")
+	@Enumerated(EnumType.STRING)
 	private UserType userType;
+	
+	@Column(name="addressId")
+	@OneToMany
+	private List<Address> address;
 
 	public Integer getUserId() {
 		return userId;
@@ -119,6 +129,16 @@ public class User {
 
 	public void setUserType(UserType userType) {
 		this.userType = userType;
+	}
+
+	
+
+	public List<Address> getAddress() {
+		return address;
+	}
+
+	public void setAddress(List<Address> address) {
+		this.address = address;
 	}
 
 	@Override

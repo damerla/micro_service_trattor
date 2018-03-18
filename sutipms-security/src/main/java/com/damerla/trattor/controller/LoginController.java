@@ -31,8 +31,6 @@ public class LoginController {
 		user.setPhoneNo("9492559426");
 		user.setUserType(UserType.EMPLOEE);
 		userRep.save(user);
-		User user2 = userRep.findByUserId(3);
-		UserType userType = user2.getUserType();
 		
 		return "login";
 	}
