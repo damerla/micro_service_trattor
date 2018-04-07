@@ -1,42 +1,43 @@
 package com.damerla.trattor.controller;
 
-import java.time.LocalDateTime;
-
+import com.damerla.trattor.enties.SuperAdminEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.damerla.trattor.model.User;
-import com.damerla.trattor.model.UserType;
-import com.damerla.trattor.persistence.IUserRepository;
+import com.damerla.trattor.model.LoginModel;
+import com.damerla.trattor.service.ILoginService;
 
 @Controller
 public class LoginController {
-	
-	@Autowired
-	private IUserRepository  userRep;
-	
-	@GetMapping("/")
-	public String  login() {
-		User user = new User();
-		user.setActive(true);
-		user.setEmail("hari@gmail.com");
-		user.setCreatedDate(LocalDateTime.now());
-		user.setModifiedDate(LocalDateTime.now());
-		user.setFirstName("Hari");
-		user.setSecondName("Babu");
-		user.setPhoneNo("9492559426");
-		user.setUserType(UserType.EMPLOEE);
-		userRep.save(user);
-		
-		return "login";
-	}
-	@PostMapping("/calling")
-	public String  login(Model model) {
-		return "login";
-	}
+
+    @Autowired
+    private ILoginService loginService;
+
+    @GetMapping("/")
+    public String login(Model model) {
+        LoginModel loginModel = new LoginModel();
+        model.addAttribute("loginModel", loginModel);
+        loginService.createSuperAdmin();
+        return "login";
+    }
+
+    @PostMapping("/login")
+    public String login(@ModelAttribute LoginModel loginModel, Model model) {
+        String viewName = "login";
+        SuperAdminEntity superAdminEntity = loginService.fetchSuperAdmin(loginModel);
+        if (superAdminEntity == null) {
+            boolean isValid = loginService.authentication(loginModel);
+            if (isValid) {
+                viewName = "/super_admin/super_admin_home";
+            }
+        } else {
+            viewName = "/super_admin/super_admin_home";
+        }
+        return viewName;
+    }
 
 }

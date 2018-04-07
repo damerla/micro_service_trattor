@@ -1,4 +1,6 @@
-package com.damerla.trattor.model;
+package com.damerla.trattor.enties;
+
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 /**
  * 
@@ -17,28 +20,34 @@ import javax.persistence.Table;
  *
  */
 @Entity
-@Table(name="address")
-public class Address {
-	
+@Table(name = "address")
+public class AddressEntity {
+
 	@Id
-	@Column(name="address_id")
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name = "address_id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer addressId;
-	@Column(name="land_mark")
+	@Column(name = "land_mark")
 	private String landMark;
-	@Column(name="street")
+	@Column(name = "street")
 	private String street;
-	@Column(name="city")
+	@Column(name = "city")
 	private String city;
-	@Column(name="distic")
+	@Column(name = "distic")
 	private String distic;
-	@Column(name="state")
+	@Column(name = "state")
 	private String state;
-	@Column(name="pincode")
+	@Column(name = "pincode")
 	private String pincode;
 	@ManyToOne
-	@JoinColumn(name="LicenseeFK")
-	private User users;
+	@JoinColumn(name = "user_FK")
+	private UserEntity users;
+	@NotNull
+	@Column(name = "created_date")
+	private LocalDateTime createdDate;
+	@NotNull
+	@Column(name = "modified_date")
+	private LocalDateTime modifiedDate;
 
 	public Integer getAddressId() {
 		return addressId;
@@ -96,23 +105,35 @@ public class Address {
 		this.pincode = pincode;
 	}
 
-
-
-	public User getUsers() {
+	public UserEntity getUsers() {
 		return users;
 	}
 
-	public void setUsers(User users) {
+	public void setUsers(UserEntity users) {
 		this.users = users;
+	}
+
+	public LocalDateTime getCreatedDate() {
+		return createdDate;
+	}
+
+	public void setCreatedDate(LocalDateTime createdDate) {
+		this.createdDate = createdDate;
+	}
+
+	public LocalDateTime getModifiedDate() {
+		return modifiedDate;
+	}
+
+	public void setModifiedDate(LocalDateTime modifiedDate) {
+		this.modifiedDate = modifiedDate;
 	}
 
 	@Override
 	public String toString() {
 		return "Address [addressId=" + addressId + ", landMark=" + landMark + ", street=" + street + ", city=" + city
-				+ ", distic=" + distic + ", state=" + state + ", pincode=" + pincode + ", users=" + users + "]";
+				+ ", distic=" + distic + ", state=" + state + ", pincode=" + pincode + ", users=" + users
+				+ ", createdDate=" + createdDate + ", modifiedDate=" + modifiedDate + "]";
 	}
-	
-	
-	
 
 }

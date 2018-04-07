@@ -1,4 +1,4 @@
-package com.damerla.trattor.model;
+package com.damerla.trattor.enties;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -10,9 +10,13 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+
+import com.damerla.trattor.model.UserType;
 
 
 /**
@@ -24,10 +28,10 @@ import javax.validation.constraints.NotNull;
  */
 @Entity
 @Table(name = "user")
-public class User {
+public class UserEntity {
 	@Id
 	@Column(name = "user_id")
-	@GeneratedValue(strategy= GenerationType.AUTO)
+	@GeneratedValue(strategy= GenerationType.IDENTITY)
 	private Integer userId;
 	@NotNull
 	@Column(name = "first_name")
@@ -35,6 +39,9 @@ public class User {
 	@NotNull
 	@Column(name = "second_name")
 	private String secondName;
+	@NotNull
+	@Column(name="password")
+	private String password;
 	@NotNull
 	@Column(name = "phone_no")
 	private String phoneNo;
@@ -54,10 +61,13 @@ public class User {
 	@Column(name = "user_type")
 	@Enumerated(EnumType.STRING)
 	private UserType userType;
-	
+	@ManyToOne
+	@JoinColumn(name="company_fk")
+	private CompanyEntity companyEntity;
+	@NotNull
 	@Column(name="addressId")
 	@OneToMany
-	private List<Address> address;
+	private List<AddressEntity> address;
 
 	public Integer getUserId() {
 		return userId;
@@ -133,19 +143,36 @@ public class User {
 
 	
 
-	public List<Address> getAddress() {
+	public List<AddressEntity> getAddress() {
 		return address;
 	}
 
-	public void setAddress(List<Address> address) {
+	public void setAddress(List<AddressEntity> address) {
 		this.address = address;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public CompanyEntity getCompanyEntity() {
+		return companyEntity;
+	}
+
+	public void setCompanyEntity(CompanyEntity companyEntity) {
+		this.companyEntity = companyEntity;
 	}
 
 	@Override
 	public String toString() {
-		return "User [userId=" + userId + ", firstName=" + firstName + ", secondName=" + secondName + ", phoneNo="
-				+ phoneNo + ", email=" + email + ", createdDate=" + createdDate + ", modifiedDate=" + modifiedDate
-				+ ", isActive=" + isActive + ", userType=" + userType + "]";
+		return "UserEntity [userId=" + userId + ", firstName=" + firstName + ", secondName=" + secondName
+				+ ", password=" + password + ", phoneNo=" + phoneNo + ", email=" + email + ", createdDate="
+				+ createdDate + ", modifiedDate=" + modifiedDate + ", isActive=" + isActive + ", userType=" + userType
+				+ ", companyEntity=" + companyEntity + ", address=" + address + "]";
 	}
 
 }
