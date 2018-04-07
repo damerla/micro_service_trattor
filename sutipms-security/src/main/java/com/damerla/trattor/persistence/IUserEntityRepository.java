@@ -3,7 +3,7 @@ package com.damerla.trattor.persistence;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import com.damerla.trattor.model.User;
+import com.damerla.trattor.enties.UserEntity;
 
 /**
  * 
@@ -13,7 +13,7 @@ import com.damerla.trattor.model.User;
  *
  */
 @Repository
-public interface IUserRepository extends CrudRepository<User, Long> {
-	public User findByUserId(Integer userId);
+public interface IUserEntityRepository extends CrudRepository<UserEntity, Long> {
+	public UserEntity findByUserId(Integer userId);
 
 }
