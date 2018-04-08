@@ -10,8 +10,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.damerla.trattor.model.LoginModel;
 import com.damerla.trattor.service.ILoginService;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
+@RequestMapping
 public class LoginController {
 
     @Autowired
@@ -22,7 +24,7 @@ public class LoginController {
         LoginModel loginModel = new LoginModel();
         model.addAttribute("loginModel", loginModel);
         loginService.createSuperAdmin();
-        return "login";
+        return "login/login";
     }
 
     @PostMapping("/login")
@@ -32,10 +34,10 @@ public class LoginController {
         if (superAdminEntity == null) {
             boolean isValid = loginService.authentication(loginModel);
             if (isValid) {
-                viewName = "/super_admin/super_admin_home";
+                viewName = "super_admin/super_admin_home";
             }
         } else {
-            viewName = "/super_admin/super_admin_home";
+            viewName = "super_admin/super_admin_home";
         }
         return viewName;
     }

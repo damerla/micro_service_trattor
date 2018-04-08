@@ -15,6 +15,11 @@
 			<artifactId>sutipms-security</artifactId>
 			<version>1.0.0</version>
 		</dependency>
+		<dependency>
+			<groupId>sutipms-springboot-module</groupId>
+			<artifactId>sutipms-super-admin</artifactId>
+			<version>1.0.0</version>
+		</dependency>
 	</dependencies>
 
 
