@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" >
+
+<head>
+
+</head>
+<body>
+
+<!-- Navbar -->
+<div  th:fragment="super_admin_header">
+    <div class="container">
+        <!-- Start header -->
+        <div class="container-fluid main-header">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4 col-sm-4 col-xs-12 pull-left">
+                        <a href="#"> <img src="images/yourlogo.png" class="logo" />
+                        </a>
+                    </div>
+                    <div class="col-md-4 col-sm-3 col-xs-12 hi"></div>
+                    <div class="col-md-4 col-sm-5 col-xs-12">
+                        <div class="hright">
+
+                            <div class="user-photo">
+                                <div class="dropdown pull-right">
+                                    <a id="btn_123" type="button" class="dropdown-toggle"
+                                       data-toggle="dropdown" aria-haspopup="true"
+                                       aria-expanded="false"><img class="head-profile"
+                                                                  src="images/profile.jpg" alt="" /> </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#"> My Account</a></li>
+                                        <li><a href="#"> Change Password</a></li>
+                                        <li><a href="#"> Release Notes</a></li>
+                                        <li><a href="#"> Sign Out</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End header -->
+
+    </div>
+</div>
+</body>
+</html>
