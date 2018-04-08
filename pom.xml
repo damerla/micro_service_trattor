@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>sutipms-springboot-module</groupId>
 	<artifactId>sutipms-master</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<packaging>pom</packaging>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -61,5 +61,6 @@
 	<modules>
 		<module>sutipms-security</module>
 		<module>sutipms-web</module>
-	</modules>
+        <module>sutipms-super-admin</module>
+    </modules>
 </project>
