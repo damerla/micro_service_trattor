@@ -3,9 +3,7 @@ package com.damerla.trattor.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author haribabu
@@ -15,8 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/super-admin")
 public class SuperAdminRestController {
-    @RequestMapping( name = "/home" ,method = RequestMethod.GET )
+    @GetMapping("/home")
     public String getCompanyList(Model model){
-    return null;
+        System.out.print("dsfsd");
+    return "";
     }
 }

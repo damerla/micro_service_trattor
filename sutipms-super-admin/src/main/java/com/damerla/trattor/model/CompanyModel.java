@@ -1,6 +1,8 @@
 package com.damerla.trattor.model;
 
 
+import org.springframework.stereotype.Component;
+
 import java.io.Serializable;
 
 /**
@@ -8,8 +10,8 @@ import java.io.Serializable;
  * @version 1.0.0
  * @since 01/Apr/2018
  */
+@Component
 public class CompanyModel implements Serializable {
-
 
     private String companyName;
     private String phoneNo;
