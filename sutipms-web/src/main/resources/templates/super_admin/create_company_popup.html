@@ -1,15 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
 <!-- Popup2 -->
 <div class="modal fade bs-example-modal" id="create-company-popup" tabindex="-1" th:fragment="create-company-popup"
      role="dialog" aria-labelledby="myModalLabel">
-
+    <form action="#" th:action="@{/super-admin/save}" th:object="${companyModel}" method="post">
         <div class="modal-dialog modal-dialog-mid" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -27,14 +21,14 @@
                                 <label class="control-label text-right">Comapny Name</label>
                             </div>
                             <div class="col-sm-8">
-                                <input class="form-control" type="text"/>
+                                <input class="form-control" type="text" th:field="*{companyName}"/>
                             </div>
                             <div class="row">
                                 <div class="col-sm-4">
                                     <label class="control-label text-right">Phone No</label>
                                 </div>
                                 <div class="col-sm-8">
-                                    <input class="form-control" type="number" />
+                                    <input class="form-control" type="number" th:field="*{phoneNo}"/>
                                 </div>
                             </div>
 
@@ -43,7 +37,7 @@
                                     <label class="control-label text-right">Email</label>
                                 </div>
                                 <div class="col-sm-8">
-                                    <input class="form-control" type="email" ></inpit>
+                                    <input class="form-control" type="email" th:field="*{email}"></inpit>
                                 </div>
                             </div>
 
@@ -52,7 +46,7 @@
                                     <label class="control-label text-right"> Address </label>
                                 </div>
                                 <div class="col-sm-8">
-                                    <textarea class="form-control" rows="2"></textarea>
+                                    <textarea class="form-control" rows="2" th:field="*{address}"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -68,7 +62,7 @@
                 </div>
             </div>
         </div>
+    </form>
     <!-- End Popup2 -->
 </div>
-</body>
 </html>

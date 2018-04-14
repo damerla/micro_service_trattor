@@ -26,20 +26,14 @@ public class LoginController {
         loginService.createSuperAdmin();
         return "login/login";
     }
-
-    @PostMapping("/login")
-    public String login(@ModelAttribute LoginModel loginModel, Model model) {
-        String viewName = "login";
-        SuperAdminEntity superAdminEntity = loginService.fetchSuperAdmin(loginModel);
-        if (superAdminEntity == null) {
-            boolean isValid = loginService.authentication(loginModel);
-            if (isValid) {
-                viewName = "super_admin/super_admin_home";
-            }
-        } else {
-            viewName = "super_admin/super_admin_home";
-        }
-        return viewName;
+    @PostMapping("/home")
+    public String loginHome(Model model) {
+        LoginModel loginModel = new LoginModel();
+        model.addAttribute("loginModel", loginModel);
+        loginService.createSuperAdmin();
+        return "login/login";
     }
+
+
 
 }
