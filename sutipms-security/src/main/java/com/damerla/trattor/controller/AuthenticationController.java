@@ -30,6 +30,7 @@ public class AuthenticationController {
                 viewName = "forward:/super-admin/home";
             }
         } else {
+
             viewName = "forward:/home";
         }
         return viewName;

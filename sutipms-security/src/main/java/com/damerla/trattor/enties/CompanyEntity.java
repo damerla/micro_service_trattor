@@ -30,25 +30,33 @@ public class CompanyEntity {
 	@Column(name = "company_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer companyId;
+
 	@NotBlank
-	@Column(name = "comany_name")
+	@Column(name = "company_name")
 	private String companyName;
+
 	@NotBlank
 	@Column(name = "phone_no")
 	private String phoneNo;
+
 	@OneToOne
 	@JoinColumn(name="address_id")
 	private AddressEntity address;
+
 	@Column(name = "status")
 	private boolean isActive;
+
 	@Column(name = "email")
 	private String email;
+
 	@OneToMany
 	@Column(name = "user_fk")
 	private Set<UserEntity> users;
+
 	@NotNull
 	@Column(name = "created_date")
 	private LocalDateTime createdDate;
+
 	@NotNull
 	@Column(name = "modified_date")
 	private LocalDateTime modifiedDate;

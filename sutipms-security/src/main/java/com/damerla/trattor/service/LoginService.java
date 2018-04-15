@@ -86,10 +86,10 @@ public class LoginService implements ILoginService {
                 AddressEntity address = new AddressEntity();
                 address.setCity("koduru");
                 address.setCreatedDate(LocalDateTime.now());
-                address.setDistic("krishna");
+                address.setDistrict("krishna");
                 address.setLandMark("ramalayam");
                 address.setModifiedDate(LocalDateTime.now());
-                address.setPincode("521328");
+                address.setPinCode("521328");
                 address.setState("AP");
                 address.setStreet("");
                 address.setUsers(entity);
