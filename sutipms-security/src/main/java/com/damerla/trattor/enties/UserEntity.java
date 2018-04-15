@@ -20,159 +20,167 @@ import com.damerla.trattor.model.UserType;
 
 
 /**
- * 
  * @author Hari
- * @since 15/Mar/2018
  * @version 1.0.0
- *
+ * @since 15/Mar/2018
  */
 @Entity
 @Table(name = "user")
 public class UserEntity {
-	@Id
-	@Column(name = "user_id")
-	@GeneratedValue(strategy= GenerationType.IDENTITY)
-	private Integer userId;
-	@NotNull
-	@Column(name = "first_name")
-	private String firstName;
-	@NotNull
-	@Column(name = "second_name")
-	private String secondName;
-	@NotNull
-	@Column(name="password")
-	private String password;
-	@NotNull
-	@Column(name = "phone_no")
-	private String phoneNo;
-	@NotNull
-	@Column(name = "email")
-	private String email;
-	@NotNull
-	@Column(name = "created_date")
-	private LocalDateTime createdDate;
-	@NotNull
-	@Column(name = "modified_date")
-	private LocalDateTime modifiedDate;
-	@NotNull
-	@Column(name = "active")
-	private boolean isActive;
-	@NotNull
-	@Column(name = "user_type")
-	@Enumerated(EnumType.STRING)
-	private UserType userType;
-	@ManyToOne
-	@JoinColumn(name="company_fk")
-	private CompanyEntity companyEntity;
-	@NotNull
-	@Column(name="addressId")
-	@OneToMany
-	private List<AddressEntity> address;
 
-	public Integer getUserId() {
-		return userId;
-	}
+    @Id
+    @Column(name = "user_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer userId;
 
-	public void setUserId(Integer userId) {
-		this.userId = userId;
-	}
+    @NotNull
+    @Column(name = "first_name")
+    private String firstName;
 
-	public String getFirstName() {
-		return firstName;
-	}
+    @NotNull
+    @Column(name = "second_name")
+    private String secondName;
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
+    @NotNull
+    @Column(name = "password")
+    private String password;
 
-	public String getSecondName() {
-		return secondName;
-	}
+    @NotNull
+    @Column(name = "phone_no")
+    private String phoneNo;
 
-	public void setSecondName(String secondName) {
-		this.secondName = secondName;
-	}
+    @NotNull
+    @Column(name = "email")
+    private String email;
 
-	public String getPhoneNo() {
-		return phoneNo;
-	}
+    @NotNull
+    @Column(name = "created_date")
+    private LocalDateTime createdDate;
 
-	public void setPhoneNo(String phoneNo) {
-		this.phoneNo = phoneNo;
-	}
+    @NotNull
+    @Column(name = "modified_date")
+    private LocalDateTime modifiedDate;
 
-	public String getEmail() {
-		return email;
-	}
+    @NotNull
+    @Column(name = "active")
+    private boolean isActive;
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    @NotNull
+    @Column(name = "user_type")
+    @Enumerated(EnumType.STRING)
+    private UserType userType;
 
-	public LocalDateTime getCreatedDate() {
-		return createdDate;
-	}
+    @ManyToOne
+    @JoinColumn(name = "company_fk")
+    private CompanyEntity companyEntity;
 
-	public void setCreatedDate(LocalDateTime createdDate) {
-		this.createdDate = createdDate;
-	}
+    @Column(name = "addressId")
+    @OneToMany
+    private List<AddressEntity> address;
 
-	public LocalDateTime getModifiedDate() {
-		return modifiedDate;
-	}
+    public Integer getUserId() {
+        return userId;
+    }
 
-	public void setModifiedDate(LocalDateTime modifiedDate) {
-		this.modifiedDate = modifiedDate;
-	}
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
 
-	public boolean isActive() {
-		return isActive;
-	}
+    public String getFirstName() {
+        return firstName;
+    }
 
-	public void setActive(boolean isActive) {
-		this.isActive = isActive;
-	}
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
 
-	public UserType getUserType() {
-		return userType;
-	}
+    public String getSecondName() {
+        return secondName;
+    }
 
-	public void setUserType(UserType userType) {
-		this.userType = userType;
-	}
+    public void setSecondName(String secondName) {
+        this.secondName = secondName;
+    }
 
-	
+    public String getPhoneNo() {
+        return phoneNo;
+    }
 
-	public List<AddressEntity> getAddress() {
-		return address;
-	}
+    public void setPhoneNo(String phoneNo) {
+        this.phoneNo = phoneNo;
+    }
 
-	public void setAddress(List<AddressEntity> address) {
-		this.address = address;
-	}
+    public String getEmail() {
+        return email;
+    }
 
-	public String getPassword() {
-		return password;
-	}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    public LocalDateTime getCreatedDate() {
+        return createdDate;
+    }
 
-	public CompanyEntity getCompanyEntity() {
-		return companyEntity;
-	}
+    public void setCreatedDate(LocalDateTime createdDate) {
+        this.createdDate = createdDate;
+    }
 
-	public void setCompanyEntity(CompanyEntity companyEntity) {
-		this.companyEntity = companyEntity;
-	}
+    public LocalDateTime getModifiedDate() {
+        return modifiedDate;
+    }
 
-	@Override
-	public String toString() {
-		return "UserEntity [userId=" + userId + ", firstName=" + firstName + ", secondName=" + secondName
-				+ ", password=" + password + ", phoneNo=" + phoneNo + ", email=" + email + ", createdDate="
-				+ createdDate + ", modifiedDate=" + modifiedDate + ", isActive=" + isActive + ", userType=" + userType
-				+ ", companyEntity=" + companyEntity + ", address=" + address + "]";
-	}
+    public void setModifiedDate(LocalDateTime modifiedDate) {
+        this.modifiedDate = modifiedDate;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean isActive) {
+        this.isActive = isActive;
+    }
+
+    public UserType getUserType() {
+        return userType;
+    }
+
+    public void setUserType(UserType userType) {
+        this.userType = userType;
+    }
+
+
+    public List<AddressEntity> getAddress() {
+        return address;
+    }
+
+    public void setAddress(List<AddressEntity> address) {
+        this.address = address;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public CompanyEntity getCompanyEntity() {
+        return companyEntity;
+    }
+
+    public void setCompanyEntity(CompanyEntity companyEntity) {
+        this.companyEntity = companyEntity;
+    }
+
+    @Override
+    public String toString() {
+        return "UserEntity [userId=" + userId + ", firstName=" + firstName + ", secondName=" + secondName
+                + ", password=" + password + ", phoneNo=" + phoneNo + ", email=" + email + ", createdDate="
+                + createdDate + ", modifiedDate=" + modifiedDate + ", isActive=" + isActive + ", userType=" + userType
+                + ", companyEntity=" + companyEntity + ", address=" + address + "]";
+    }
 
 }
