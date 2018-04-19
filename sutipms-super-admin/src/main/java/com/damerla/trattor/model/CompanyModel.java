@@ -17,6 +17,7 @@ public class CompanyModel implements Serializable {
     private String phoneNo;
     private String email;
     private String address;
+    private String ownerName;
 
     public String getCompanyName() {
         return companyName;
@@ -50,6 +51,14 @@ public class CompanyModel implements Serializable {
         this.address = address;
     }
 
+    public String getOwnerName() {
+        return ownerName;
+    }
+
+    public void setOwnerName(String ownerName) {
+        this.ownerName = ownerName;
+    }
+
     @Override
     public String toString() {
         return "CompanyModel{" +
@@ -57,6 +66,7 @@ public class CompanyModel implements Serializable {
                 ", phoneNo='" + phoneNo + '\'' +
                 ", email='" + email + '\'' +
                 ", address='" + address + '\'' +
+                ", ownerName='" + ownerName + '\'' +
                 '}';
     }
 }

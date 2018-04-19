@@ -9,6 +9,7 @@ import java.util.Set;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -113,10 +114,11 @@ public class LoginService implements ILoginService {
                 entity.setEmail("raghu@gmail.com");
                 entity.setFirstName("Nagamuni");
                 entity.setModifiedDate(LocalDateTime.now());
-                entity.setPassword("55java");
+                BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+                entity.setPassword(bCryptPasswordEncoder.encode("55java"));
                 entity.setPhoneNo("9666439898");
                 entity.setSecondName("Damerla");
-                entity.setUserType(UserType.EMPLOEE);
+                entity.setUserType(UserType.EMPLOYEE);
                 userEntityRepo.save(entity);
             }
 
@@ -137,10 +139,13 @@ public class LoginService implements ILoginService {
                 superAdminEntity.setActive(true);
                 superAdminEntity.setCreatedDate(LocalDateTime.now());
                 superAdminEntity.setModifiedDate(LocalDateTime.now());
-                superAdminEntity.setPassword("55java");
+                BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+                superAdminEntity.setPassword(bCryptPasswordEncoder.encode("55java"));
                 superAdminEntity.setUserName("Raghu");
                 superAdminEntity.setPhoneNo("9492559426");
                 superAdminEntity.setEmail("hari@gmail.com");
+                superAdminEntity.setAdminDeleted(false);
+                superAdminEntity.setUserType(UserType.SUPER_ADMIN);
                 superAdminEntityRepo.save(superAdminEntity);
             }
         } catch (LoginException e) {

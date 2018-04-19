@@ -35,6 +35,10 @@ public class CompanyEntity {
 	@Column(name = "company_name")
 	private String companyName;
 
+	@NotNull
+	@Column(name = "owner_name")
+	private  String ownerName;
+
 	@NotBlank
 	@Column(name = "phone_no")
 	private String phoneNo;
@@ -134,11 +138,28 @@ public class CompanyEntity {
 		this.modifiedDate = modifiedDate;
 	}
 
+	public String getOwnerName() {
+		return ownerName;
+	}
+
+	public void setOwnerName(String ownerName) {
+		this.ownerName = ownerName;
+	}
+
 	@Override
 	public String toString() {
-		return "CompanyEntity [companyId=" + companyId + ", companyName=" + companyName + ", phoneNo=" + phoneNo
-				+ ", address=" + address + ", isActive=" + isActive + ", email=" + email + ", users=" + users
-				+ ", createdDate=" + createdDate + ", modifiedDate=" + modifiedDate + "]";
+		return "CompanyEntity{" +
+				"companyId=" + companyId +
+				", companyName='" + companyName + '\'' +
+				", ownerName='" + ownerName + '\'' +
+				", phoneNo='" + phoneNo + '\'' +
+				", address=" + address +
+				", isActive=" + isActive +
+				", email='" + email + '\'' +
+				", users=" + users +
+				", createdDate=" + createdDate +
+				", modifiedDate=" + modifiedDate +
+				'}';
 	}
 
 }

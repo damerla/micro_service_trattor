@@ -16,4 +16,8 @@ import com.damerla.trattor.enties.UserEntity;
 public interface IUserEntityRepository extends CrudRepository<UserEntity, Long> {
 	public UserEntity findByUserId(Integer userId);
 
+	public UserEntity findByEmail(String email);
+
+	//public UserEntity findByEmailAndActive(String email,Boolean isActive);
+
 }

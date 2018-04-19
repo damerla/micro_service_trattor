@@ -7,6 +7,7 @@ import com.damerla.trattor.enties.SuperAdminEntity;
 
 @Repository
 public interface ISuperAdminEntityRepository extends CrudRepository<SuperAdminEntity, Long> {
+
     public SuperAdminEntity findBySuperAdminId(Integer superAdminId);
 
     /**
@@ -14,5 +15,7 @@ public interface ISuperAdminEntityRepository extends CrudRepository<SuperAdminEn
      */
 
     public SuperAdminEntity findByUserNameAndPassword(String userName, String password);
+
+    SuperAdminEntity findByUserNameAndAdminDeleted(String userName, Boolean isDeleted);
 
 }

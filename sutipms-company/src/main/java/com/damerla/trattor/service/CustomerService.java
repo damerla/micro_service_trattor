@@ -7,6 +7,7 @@ package com.damerla.trattor.service;
 
 
 import com.damerla.trattor.enties.UserEntity;
+import com.damerla.trattor.exception.ChangeStatusException;
 import com.damerla.trattor.exception.SaveAndUpdateException;
 import com.damerla.trattor.model.CustomerModel;
 import com.damerla.trattor.model.StatusType;
@@ -72,7 +73,7 @@ public class CustomerService  implements  ICrudService{
 
             isStatusChanged = true;
 
-        } catch (SaveAndUpdateException e) {
+        } catch (ChangeStatusException e) {
             log.error("Error while  changing status of Customer Entity ----------->", e);
         }
         log.info("Start change Status Customer Entity ------------>");

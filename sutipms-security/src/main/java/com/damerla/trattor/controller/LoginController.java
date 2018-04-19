@@ -24,15 +24,15 @@ public class LoginController {
         LoginModel loginModel = new LoginModel();
         model.addAttribute("loginModel", loginModel);
         loginService.createSuperAdmin();
-        return "login/login";
+        return "/login/login";
     }
-    @PostMapping("/home")
+  /*  @PostMapping("/home")
     public String loginHome(Model model) {
         LoginModel loginModel = new LoginModel();
         model.addAttribute("loginModel", loginModel);
         loginService.createSuperAdmin();
-        return "login/login";
-    }
+        return "/login/login";
+    }*/
 
 
 
