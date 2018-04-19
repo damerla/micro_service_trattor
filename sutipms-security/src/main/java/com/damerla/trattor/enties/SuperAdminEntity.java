@@ -1,13 +1,10 @@
 package com.damerla.trattor.enties;
 
+import com.damerla.trattor.model.UserType;
+
 import java.time.LocalDateTime;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -37,6 +34,10 @@ public class SuperAdminEntity {
     private boolean isActive;
 
     @NotNull
+    @Column(name = "is_deleted")
+    private boolean adminDeleted;
+
+    @NotNull
     @Column(name = "created_date")
     private LocalDateTime createdDate;
 
@@ -50,6 +51,11 @@ public class SuperAdminEntity {
 
     @Column(name = "email")
     private String email;
+
+    @NotNull
+    @Column(name = "user_type")
+    @Enumerated(EnumType.STRING)
+    private UserType userType;
 
     public Integer getSuperAdminId() {
         return superAdminId;
@@ -115,11 +121,36 @@ public class SuperAdminEntity {
         this.email = email;
     }
 
+    public boolean isAdminDeleted() {
+        return adminDeleted;
+    }
+
+    public void setAdminDeleted(boolean adminDeleted) {
+        this.adminDeleted = adminDeleted;
+    }
+
+    public UserType getUserType() {
+        return userType;
+    }
+
+    public void setUserType(UserType userType) {
+        this.userType = userType;
+    }
+
     @Override
     public String toString() {
-        return "SuperAdminEntity [superAdminId=" + superAdminId + ", userName=" + userName + ", password=" + password
-                + ", isActive=" + isActive + ", createdDate=" + createdDate + ", modifiedDate=" + modifiedDate
-                + ", phoneNo=" + phoneNo + ", email=" + email + "]";
+        return "SuperAdminEntity{" +
+                "superAdminId=" + superAdminId +
+                ", userName='" + userName + '\'' +
+                ", password='" + password + '\'' +
+                ", isActive=" + isActive +
+                ", adminDeleted=" + adminDeleted +
+                ", createdDate=" + createdDate +
+                ", modifiedDate=" + modifiedDate +
+                ", phoneNo='" + phoneNo + '\'' +
+                ", email='" + email + '\'' +
+                ", userType=" + userType +
+                '}';
     }
 
 }

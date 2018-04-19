@@ -8,7 +8,7 @@ package com.damerla.trattor.model;
  *
  */
 public enum UserType {
-	Admin("admin"), NORMAL("normal"), EMPLOEE("emploee");
+	ADMIN("Admin"), NORMAL("Normal"), EMPLOYEE("Employee"), SUPER_ADMIN("super_admin");
 	private String userType;
 
 	UserType(String userType) {

@@ -6,6 +6,7 @@ package com.damerla.trattor.service;
  */
 
 import com.damerla.trattor.enties.UserEntity;
+import com.damerla.trattor.exception.ChangeStatusException;
 import com.damerla.trattor.exception.SaveAndUpdateException;
 import com.damerla.trattor.model.StatusType;
 import com.damerla.trattor.model.TypeOfWorkModel;
@@ -72,7 +73,7 @@ public class TypeOfWorkService implements ICrudService {
 
             isStatusChanged = true;
 
-        } catch (SaveAndUpdateException e) {
+        } catch (ChangeStatusException e) {
             log.error("Error while  changing status of UserEntity ----------->", e);
         }
         log.info("Start change Status TypeOfWork Entity ------------>");

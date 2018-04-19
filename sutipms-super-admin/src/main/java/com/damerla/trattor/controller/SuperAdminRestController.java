@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 public class SuperAdminRestController {
     @GetMapping("/home")
     public String getCompanyList(Model model){
-        System.out.print("dsfsd");
-    return "";
+    return "/super_admin/super_admin_home";
     }
 }
