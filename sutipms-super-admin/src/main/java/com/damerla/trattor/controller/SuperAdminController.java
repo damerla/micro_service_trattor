@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpSession;
 import java.util.Collection;
@@ -38,27 +40,27 @@ public class SuperAdminController {
     private HttpSession httpSession;
 
     @GetMapping("/")
-    public  String home(Model model){
+    public String home(Model model) {
         CompanyModel companyModel = new CompanyModel();
-        model.addAttribute("companyModel",companyModel);
+        model.addAttribute("companyModel", companyModel);
         return "/super_admin/super_admin_home";
     }
+
     @PostMapping("/homeram")
-    public  String home1(Model model){
+    public String home1(Model model) {
         CompanyModel companyModel = new CompanyModel();
-        model.addAttribute("companyModel",companyModel);
-        return "/super_admin/super_admin_home";
+        model.addAttribute("companyModel", companyModel);
+        return "/super_admin/";
     }
 
     @PostMapping("/save")
-    public  String saveComany(@ModelAttribute CompanyModel companyModel, BindingResult bindingResult, Model model){
+    public RedirectView saveComany(@ModelAttribute CompanyModel companyModel, BindingResult bindingResult, RedirectAttributes attributes, Model model) {
         String id = httpSession.getId();
         String name = (String) httpSession.getAttribute("name");
 
-        AbstractAuthenticationToken auth = (AbstractAuthenticationToken)SecurityContextHolder.getContext().getAuthentication();
-        Map<String, SessionModel> m =( Map<String, SessionModel>) auth.getDetails();
-        SessionModel SessionModel = m.get("sessionModel");
-       // superAdminService.saveCompany(companyModel);
-        return "super_admin/super_admin_home";
+       // attributes.addAttribute("message","updateSuccess");
+        attributes.addFlashAttribute("message","updateSuccess");
+        // superAdminService.saveCompany(companyModel);
+       return new RedirectView("./");
     }
 }

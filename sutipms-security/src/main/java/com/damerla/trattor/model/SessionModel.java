@@ -14,6 +14,7 @@ public class SessionModel implements Serializable {
     private Integer companyId;
     private Integer userId;
     private UserType userType;
+    private String menuType;
 
     public SessionModel() {
     }
@@ -48,12 +49,21 @@ public class SessionModel implements Serializable {
         this.userType = userType;
     }
 
+    public String getMenuType() {
+        return menuType;
+    }
+
+    public void setMenuType(String menuType) {
+        this.menuType = menuType;
+    }
+
     @Override
     public String toString() {
         return "SessionModel{" +
                 "companyId=" + companyId +
                 ", userId=" + userId +
                 ", userType=" + userType +
+                ", menuType='" + menuType + '\'' +
                 '}';
     }
 }
