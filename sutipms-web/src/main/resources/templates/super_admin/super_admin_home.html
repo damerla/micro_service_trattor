@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout/layout}">
+      layout:decorate="~{layout/layout}"  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -19,6 +19,7 @@
 <!-- Start BodyContent -->
 <div class="container-fluid  BodyContent" onload="companyDatatable();">
     <div class="contbg">
+        <div th:replace="fragment/message-success :: message-success"></div>
 
         <!-- Start breadcrumbs -->
         <div class="row">
@@ -26,7 +27,7 @@
                 <div class="breadcrumbs">
                     <a href="#"><i class="fa fa-home home" aria-hidden="true"></i></a>
                     <img src="../images/bread-arrow.png"/> <a href="#">Setups my</a> <img
-                        src="../images/bread-arrow.png"/> View Roles
+                        src="../images/bread-arrow.png"/> View Roles    
                 </div>
             </div>
         </div>

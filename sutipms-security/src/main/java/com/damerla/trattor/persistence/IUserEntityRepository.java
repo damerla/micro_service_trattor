@@ -18,6 +18,7 @@ public interface IUserEntityRepository extends CrudRepository<UserEntity, Long> 
 
 	public UserEntity findByEmail(String email);
 
+
 	//public UserEntity findByEmailAndActive(String email,Boolean isActive);
 
 }
