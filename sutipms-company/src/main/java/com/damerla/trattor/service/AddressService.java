@@ -5,21 +5,40 @@ package com.damerla.trattor.service;
  * @version 1.0.0
  */
 
+import com.damerla.trattor.enties.AddressEntity;
+import com.damerla.trattor.enties.CompanyEntity;
 import com.damerla.trattor.enties.UserEntity;
 import com.damerla.trattor.exception.ChangeStatusException;
 import com.damerla.trattor.exception.SaveAndUpdateException;
 import com.damerla.trattor.model.AddressModel;
+import com.damerla.trattor.model.DataTablePaginationModel;
 import com.damerla.trattor.model.StatusType;
+import com.damerla.trattor.model.UserSession;
+import com.damerla.trattor.persistence.IAddressEntityRepository;
+import com.damerla.trattor.persistence.ICompanyEntityRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 @Service
 public class AddressService implements  ICrudService {
 
     private final static Logger log = LogManager.getLogger(TypeOfWorkService.class);
 
+    @Autowired
+    private IAddressEntityRepository addressEntityRepo;
 
+    @Autowired
+    private ICompanyEntityRepository companyEntityRepo;
+
+    @Autowired
+    private UserSession userSession;
 
     @Override
     public <T> Boolean saveOrUpdate(T model) {
@@ -28,25 +47,29 @@ public class AddressService implements  ICrudService {
         try {
             AddressModel addressModel = (AddressModel) model;
 
-            UserEntity userEntity = null;
+            AddressEntity addressEntity = null;
 
             if (addressModel.getAddressId() == null) {
-                /*userEntity = new UserEntity();
-                userEntity.setModifiedDate(LocalDateTime.now());
-                userEntity.setCreatedDate(LocalDateTime.now());
-                userEntity.setActive(false);*/
+                addressEntity = new AddressEntity();
+                addressEntity.setCreatedDate(LocalDateTime.now());
+                addressEntity.setModifiedDate(LocalDateTime.now());
+
+
             } else {
-              /*  userEntity = userEntityRepo.findByUserId(userModel.getUserId());
-                userEntity.setModifiedDate(LocalDateTime.now());*/
+                addressEntityRepo.findByAddressId(addressModel.getAddressId());
+                addressEntity.setAddressId(addressModel.getAddressId());
+                addressEntity.setModifiedDate(LocalDateTime.now());
             }
 
-           /* userEntity.setEmail(userModel.getEmail());
-            userEntity.setFirstName(userModel.getFirstName());
-            userEntity.setSecondName(userModel.getLastName());
-            userEntity.setPhoneNo(userModel.getPhoneNo());
-            userEntity.setUserType(userModel.getSelectedUserType());
+            addressEntity.setCity(addressModel.getCity());
+            addressEntity.setDistrict(addressModel.getCity());
+            addressEntity.setPinCode(addressModel.getPinCode().toString());
+            addressEntity.setCompanyEntity(companyEntityRepo.findByCompanyId(userSession.getSessionModel().getCompanyId()));
 
-            userEntityRepo.save(userEntity);*/
+
+
+
+            addressEntityRepo.save(addressEntity);
             isSaveOrUpdate = true;
 
         } catch (SaveAndUpdateException e) {
@@ -79,5 +102,33 @@ public class AddressService implements  ICrudService {
         }
         log.info("Start change Status Address Entity ------------>");
         return isStatusChanged;
+    }
+
+    public DataTablePaginationModel getAddress(){
+        log.info("Start to get all address from database -------------->");
+        DataTablePaginationModel dataTablePaginationModel = new DataTablePaginationModel();
+        try {
+            CompanyEntity companyEntity = companyEntityRepo.findByCompanyId(userSession.getSessionModel().getCompanyId());
+            List<AddressEntity> addressEntities = addressEntityRepo.findByCompanyEntity(companyEntity);
+            List<AddressModel> addressModels = new ArrayList<>();
+
+            addressEntities.forEach(addressEntity -> {
+                AddressModel addressModel = new AddressModel();
+                addressModel.setCity(addressEntity.getCity());
+                addressModel.setPinCode(Integer.valueOf(addressEntity.getPinCode()));
+                addressModel.setState(addressEntity.getState());
+                addressModels.add(addressModel);
+            });
+
+            dataTablePaginationModel.setDraw("1");
+            dataTablePaginationModel.setRecordsTotal(String.valueOf(addressModels.size()));
+            dataTablePaginationModel.setRecordsFiltered(String.valueOf(addressModels.size()));
+            dataTablePaginationModel.setData(addressModels);
+
+        }catch (Exception e){
+            log.error("Error while fetching address ---------------->", e);
+        }
+        log.info("End to get all address from database -------------->");
+        return  dataTablePaginationModel;
     }
 }

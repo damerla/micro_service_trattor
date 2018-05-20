@@ -3,17 +3,20 @@ package com.damerla.trattor.service;
 import com.damerla.trattor.enties.CompanyEntity;
 import com.damerla.trattor.enties.UserEntity;
 import com.damerla.trattor.exception.SuperAdminException;
-import com.damerla.trattor.model.CompanyModel;
-import com.damerla.trattor.model.UserType;
+import com.damerla.trattor.model.*;
 import com.damerla.trattor.persistence.ICompanyEntityRepository;
 import com.damerla.trattor.persistence.IUserEntityRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.hibernate.exception.DataException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 @Service
 public class SuperAdminService implements ISuperAdminService {
@@ -61,4 +64,60 @@ public class SuperAdminService implements ISuperAdminService {
 
         return false;
     }
+
+    @Override
+    public DataTablePaginationModel getCompanyList() {
+        log.info("Start to get all company entities ------------->");
+
+        DataTablePaginationModel dataTablePaginationModel = null;
+        try {
+            dataTablePaginationModel = new DataTablePaginationModel();
+            List<CompanyEntity> companyEntityList = companyEntityRepo.findAll();
+            List<CompanyTableModel> companyTableModels = new ArrayList<>();
+            for (CompanyEntity companyEntity:companyEntityList) {
+                CompanyTableModel companyTableModel = new CompanyTableModel();
+                companyTableModel.setCompanyName(companyEntity.getCompanyName());
+                companyTableModel.setCompanyId(companyEntity.getCompanyId().toString());
+                companyTableModel.setEmail(companyEntity.getEmail());
+                companyTableModel.setOwner(companyEntity.getOwnerName());
+                companyTableModel.setPhoneNo(companyEntity.getPhoneNo());
+
+                companyTableModels.add(companyTableModel);
+            }
+
+            dataTablePaginationModel.setData(companyTableModels);
+            dataTablePaginationModel.setDraw("1");
+            dataTablePaginationModel.setRecordsFiltered(String.valueOf(companyTableModels.size()));
+            dataTablePaginationModel.setRecordsTotal(String.valueOf(companyTableModels.size()));
+        }catch (Exception e){
+            log.error("Error while getting company entities --------->", e);
+        }
+        log.info("End to get all company entities ------------->");
+
+        return dataTablePaginationModel;
+    }
+
+    public CompanyFilterModel getCompanyName(){
+        List<CompanyEntity> companyEntityList = companyEntityRepo.findAll();
+        List<KeyValue> comanyNameList = new ArrayList<>();
+        companyEntityList.forEach(companyEntity ->{
+            comanyNameList.add(new KeyValue(String.valueOf(companyEntity.getCompanyId()), companyEntity.getCompanyName()));
+        });
+        CompanyFilterModel companyFilterModel = new CompanyFilterModel();
+        companyFilterModel.setCompanyKeyValue(comanyNameList);
+        return companyFilterModel;
+    }
+
+    public DataTablePaginationModel getFilterCompanyList(){
+        log.info("Start to get company list based on filter --------------.");
+        DataTablePaginationModel dataTablePaginationModel = new DataTablePaginationModel();
+        try {
+
+        }catch (Exception e){
+            log.error("Error while getting company details", e);
+        }
+        log.info("End to get company list based on filter --------------.");
+        return dataTablePaginationModel;
+    }
+
 }

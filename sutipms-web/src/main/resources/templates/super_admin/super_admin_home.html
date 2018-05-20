@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout/layout}"  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+      layout:decorate="~{layout/layout}" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -14,10 +14,10 @@
 </head>
 
 
-<body layout:fragment="content">
+<body layout:fragment="content" onload="companyDataTable();">
 
 <!-- Start BodyContent -->
-<div class="container-fluid  BodyContent" onload="companyDatatable();">
+<div class="container-fluid  BodyContent">
     <div class="contbg">
         <div th:replace="fragment/message-success :: message-success"></div>
 
@@ -42,7 +42,8 @@
                                             aria-hidden="true"></i>
 						</a>
 						</span> <span class="actions"> <a data-toggle="modal"
-                                                          data-target="#create-company-popup"> <i class="fa fa-plus"></i> New
+                                                          data-target="#create-company-popup"> <i
+                        class="fa fa-plus"></i> New
 						</a>
 						</span> <br clear="all"/>
                 </div>
@@ -50,40 +51,42 @@
         </div>
         <!-- End phead -->
 
-
-        <div class="form captionmrg">
-            <div class="row">
-                <div class="col-sm-12 col-xs-12 col-md-6">
-                    <div class="row">
-                        <div class="col-sm-4">
-                            <label class="control-label">Role Type </label>
+        <form action="#" th:action="@{../super-admin/filter}" th:object="${companyFilterModel}" method="post">
+            <div class="form captionmrg">
+                <div class="row">
+                    <div class="col-sm-12 col-xs-12 col-md-6">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <label class="control-label">Comapny Name </label>
+                            </div>
+                            <div class="col-sm-8">
+                                <select class="form-control" th:field="*{companyName}">
+                                    <option th:value="0">Select</option>
+                                    <option th:each="comapnyInstance : ${companyFilterModel.companyKeyValue}" th:value="${comapnyInstance.key}"th:text="${comapnyInstance.value}" />
+                                </select>
+                            </div>
                         </div>
-                        <div class="col-sm-8">
-                            <select class="form-control">
-                                <option>Select</option>
-                            </select>
+                    </div>
+                    <div class="col-sm-12 col-xs-12 col-md-6">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <label class="control-label">Roles</label>
+                            </div>
+                            <div class="col-sm-8">
+                                <select class="form-control">
+                                    <option>Select</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-12 col-xs-12 col-md-6">
-                    <div class="row">
-                        <div class="col-sm-4">
-                            <label class="control-label">Roles</label>
-                        </div>
-                        <div class="col-sm-8">
-                            <select class="form-control">
-                                <option>Select</option>
-                            </select>
-                        </div>
+                <div class="row">
+                    <div class="col-sm-12 col-xs-12 col-md-12 buttons">
+                        <button class="btn btn-sutisoft" onclick="companyDataTable1();" type="button">Search</button>
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-sm-12 col-xs-12 col-md-12 buttons">
-                    <button class="btn btn-sutisoft" onclick="companyDatatable();" type="button">Search</button>
-                </div>
-            </div>
-        </div>
+        </form>
 
         <div class="row">
             <div class="col-md-12">
@@ -95,28 +98,6 @@
 
         <div class="table-responsive list">
             <table class="table table-bordered" id="companys_datatable">
-                <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Name</th>
-                    <th>Place</th>
-                    <th>City</th>
-                    <th>State</th>
-                    <th>Phone</th>
-                </tr>
-                </thead>
-                <tfoot>
-                <tr>
-                    <th>Id</th>
-                    <th>Name</th>
-                    <th>Place</th>
-                    <th>City</th>
-                    <th>State</th>
-                    <th>Phone</th>
-                </tr>
-                </tfoot>
-                <tbody>
-                </tbody>
 
             </table>
         </div>

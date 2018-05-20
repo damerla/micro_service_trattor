@@ -12,7 +12,9 @@ import com.damerla.trattor.exception.ChangeStatusException;
 import com.damerla.trattor.exception.SaveAndUpdateException;
 import com.damerla.trattor.model.FieldAddressModel;
 import com.damerla.trattor.model.StatusType;
+import com.damerla.trattor.model.UserSession;
 import com.damerla.trattor.persistence.IFieldAddressEntityRepository;
+import com.damerla.trattor.persistence.IUserEntityRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +30,12 @@ public class FiledAddressService implements ICrudService {
     @Autowired
     private IFieldAddressEntityRepository fieldAddressEntityRepo;
 
+    @Autowired
+    private UserSession userSession;
+
+    @Autowired
+    private IUserEntityRepository userEntityRepo;
+
     @Override
     public <T> Boolean saveOrUpdate(T model) {
         log.info("Start saving or update FieldAddressEntity ------------>");
@@ -36,17 +44,23 @@ public class FiledAddressService implements ICrudService {
             FieldAddressModel fieldAddressModel = (FieldAddressModel) model;
 
             FieldAddressEntity fieldAddressEntity = null;
-
+            UserEntity userEntity = userEntityRepo.findByUserId(userSession.getSessionModel().getUserId());
             if (fieldAddressModel.getFieldAddressId() == null) {
                 fieldAddressEntity = new FieldAddressEntity();
                 fieldAddressEntity.setModifiedDate(LocalDateTime.now());
                 fieldAddressEntity.setCreatedDate(LocalDateTime.now());
+                fieldAddressEntity.setCrtBydUserId(userEntity);
+                fieldAddressEntity.setModByUserId(userEntity);
+
             } else {
                 fieldAddressEntity = fieldAddressEntityRepo.findByFieldAddressId(fieldAddressModel.getFieldAddressId());
                 fieldAddressEntity.setModifiedDate(LocalDateTime.now());
+                fieldAddressEntity.setModByUserId(userEntity);
             }
 
             fieldAddressEntity.setAcres(fieldAddressModel.getAcres());
+            fieldAddressEntity.setDelete(false);
+            fieldAddressEntity.setFiledName(fieldAddressModel.getFiledName());
 
 
 
