@@ -2,14 +2,7 @@ package com.damerla.trattor.enties;
 
 import java.time.LocalDateTime;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -56,9 +49,16 @@ public class AddressEntity {
     @Column(name = "modified_date")
     private LocalDateTime modifiedDate;
 
+    @NotNull
+    @OneToOne
+    @JoinColumn(name = "company_id")
+    private  CompanyEntity companyEntity;
+
     public Integer getAddressId() {
         return addressId;
     }
+
+
 
     public void setAddressId(Integer addressId) {
         this.addressId = addressId;
@@ -136,6 +136,14 @@ public class AddressEntity {
         this.modifiedDate = modifiedDate;
     }
 
+    public CompanyEntity getCompanyEntity() {
+        return companyEntity;
+    }
+
+    public void setCompanyEntity(CompanyEntity companyEntity) {
+        this.companyEntity = companyEntity;
+    }
+
     @Override
     public String toString() {
         return "AddressEntity{" +
@@ -149,6 +157,7 @@ public class AddressEntity {
                 ", users=" + users +
                 ", createdDate=" + createdDate +
                 ", modifiedDate=" + modifiedDate +
+                ", companyEntity=" + companyEntity +
                 '}';
     }
 }

@@ -63,6 +63,11 @@ public class FieldAddressEntity {
     @JoinColumn(name = "work_entity_fk")
     private WorkEntity workEntity;
 
+    @NotNull
+    @OneToOne
+    @JoinColumn(name = "company_id")
+    private  CompanyEntity companyEntity;
+
     public Integer getFieldAddressId() {
         return fieldAddressId;
     }
@@ -151,6 +156,14 @@ public class FieldAddressEntity {
         this.workEntity = workEntity;
     }
 
+    public CompanyEntity getCompanyEntity() {
+        return companyEntity;
+    }
+
+    public void setCompanyEntity(CompanyEntity companyEntity) {
+        this.companyEntity = companyEntity;
+    }
+
     @Override
     public String toString() {
         return "FieldAddressEntity{" +
@@ -165,6 +178,7 @@ public class FieldAddressEntity {
                 ", modifiedDate=" + modifiedDate +
                 ", customerEntity=" + customerEntity +
                 ", workEntity=" + workEntity +
+                ", companyEntity=" + companyEntity +
                 '}';
     }
 }

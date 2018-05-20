@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!-- Popup2 -->
+<div class="modal fade bs-example-modal" id="create_update_customer" tabindex="-1" th:fragment="create_update_customer"
+     role="dialog" aria-labelledby="myModalLabel">
+    <form action="#" th:action="@{/customer/save}" th:object="${customerModel}" method="post">
+        <input class="form-control" type="hidden" th:field="*{customerId}"/>
+        <div class="modal-dialog modal-dialog-mid" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"
+                            aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="my_ModalLabel">Create Customer</h4>
+                </div>
+
+                <div class="modal-body form">
+                    <div class="form popup-width">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <label class="control-label text-right">First Name</label>
+                            </div>
+                            <div class="col-sm-8">
+                                <input class="form-control" type="text" th:field="*{firstName}"/>
+                            </div>
+                            <div class="col-sm-4">
+                                <label class="control-label text-right">Second Name</label>
+                            </div>
+                            <div class="col-sm-8">
+                                <input class="form-control" type="text" th:field="*{secondName}"/>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <label class="control-label text-right">Phone No</label>
+                                </div>
+                                <div class="col-sm-8">
+                                    <input class="form-control" type="number" th:field="*{phoneNo}"/>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <label class="control-label text-right">Email</label>
+                                </div>
+                                <div class="col-sm-8">
+                                    <input class="form-control" type="email" th:field="*{email}"/>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <label class="control-label text-right">Adress</label>
+                                </div>
+                                <div class="col-sm-8">
+                                    <select class="form-control" multiple="multiple" th:field="*{selectedAddress}">
+                                        <option th:value="1">Select</option>
+                                        <option th:value="1">Select</option>
+                                        <option th:value="1">Select</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <label class="control-label text-right">Adress</label>
+                                </div>
+                                <div class="col-sm-8">
+                                    <select class="form-control selectpicker" data-show-subtext="true"  data-live-search="true"  th:field="*{selectedAddress}">
+                                        <option th:value="1">Select</option>
+                                        <option th:value="1">Select</option>
+                                        <option th:value="1">Select</option>
+                                    </select>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <div class="popup-width">
+                            <button type="submit" class="btn btn-sutisoft">Save</button>
+                            <button type="button" class="btn btn-sutisoft">Cancel</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </form>
+    <!-- End Popup2 -->
+</div>
+</html>

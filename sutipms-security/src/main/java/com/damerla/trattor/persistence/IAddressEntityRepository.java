@@ -1,9 +1,12 @@
 package com.damerla.trattor.persistence;
 
+import com.damerla.trattor.enties.CompanyEntity;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import com.damerla.trattor.enties.AddressEntity;
+
+import java.util.List;
 
 /**
  * 
@@ -14,5 +17,9 @@ import com.damerla.trattor.enties.AddressEntity;
  */
 @Repository
 public interface IAddressEntityRepository extends CrudRepository<AddressEntity, Long> {
+
+    AddressEntity findByAddressId(Integer addressId);
+
+    List<AddressEntity> findByCompanyEntity(CompanyEntity companyEntity);
 
 }

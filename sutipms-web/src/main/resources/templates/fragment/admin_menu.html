@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
-<body  th:fragment="super_admin_menu">
+<body  th:fragment="admin_menu">
 <!-- Start Menu -->
 <div class="navbar navbar-default" role="navigation">
     <div class="container">
@@ -13,8 +13,15 @@
         </div>
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li><a href="#" th:href="@{'/super-admin/'}">Home</a></li>
-
+                <li><a href="#" th:href="@{../dashBoard/}">Home</a></li>
+                <li><a href="#" th:href="@{/address/}">Address</a></li>
+                <li><a href="#" th:href="@{/filedAddress/}">Field Address</a></li>
+                <li><a href="#" th:href="@{/customer/}">Customers</a></li>
+                <li><a href="#">Reports</a></li>
+                <li><a href="#">Tickers</a></li>
+                <li><a href="#">Hotel PPT</a></li>
+                <li><a href="#">SMD Sign Up</a></li>
+                <li><a href="#">User DOSM at NHCC as DOSM</a></li>
             </ul>
         </div>
     </div>

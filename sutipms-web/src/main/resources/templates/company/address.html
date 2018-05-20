@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}"  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>SutiPMS</title>
+    <!-- Bootstrap -->
+    <script type="text/javascript" src="../js/super_admin/super_admin.js"></script>
+    <script type="text/javascript" src="../js/company/address.js"></script>
+
+</head>
+
+<body layout:fragment="content" onload="addressDatatable();">
+
+<!-- Start BodyContent -->
+<div class="container-fluid  BodyContent" >
+    <div class="contbg">
+        <div th:replace="fragment/message-success :: message-success"></div>
+
+        <!-- Start breadcrumbs -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="breadcrumbs">
+                    <a href="#"><i class="fa fa-home home" aria-hidden="true"></i></a>
+                    <img src="../images/bread-arrow.png"/> <a href="#">Address</a>
+                </div>
+            </div>
+        </div>
+        <!-- End breadcrumbs -->
+
+        <!-- Start phead -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="mainhead">
+                    <span class="mhead">View Roles</span> <span class="help">
+							<a href="#"> <i class="fa fa-question-circle-o"
+                                            aria-hidden="true"></i>
+						</a>
+						</span> <span class="actions"> <a data-toggle="modal"
+                                                          data-target="#create-update-address"> <i class="fa fa-plus"></i> New
+						</a>
+						</span> <br clear="all"/>
+                </div>
+            </div>
+        </div>
+        <!-- End phead -->
+
+
+        <div class="form captionmrg">
+            <div class="row">
+                <div class="col-sm-12 col-xs-12 col-md-6">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <label class="control-label">City Name </label>
+                        </div>
+                        <div class="col-sm-8">
+                            <select class="form-control">
+                                <option>Select</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-xs-12 col-md-6">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <label class="control-label">PinCode</label>
+                        </div>
+                        <div class="col-sm-8">
+                            <select class="form-control">
+                                <option>Select</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12 col-xs-12 col-md-12 buttons">
+                    <button class="btn btn-sutisoft" onclick="companyDatatable11();" type="button">Search</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="caption">
+                    Roles <span class="badge-border">5</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="table-responsive list">
+            <table class="table table-bordered" id="address_datatable">
+
+            </table>
+        </div>
+
+
+    </div>
+</div>
+<!-- End BodyContent -->
+
+
+<!-- Start Create comapny popup  -->
+
+<div th:replace="company/create_and_update_address_popup :: create-update-address-popup"></div>
+
+<!-- End Create comapny popup  -->
+
+
+</body>
+</html>

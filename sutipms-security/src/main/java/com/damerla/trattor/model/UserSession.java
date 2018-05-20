@@ -18,6 +18,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
+import javax.servlet.http.HttpSession;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashMap;
@@ -31,14 +32,18 @@ public class UserSession  implements Serializable {
     @Autowired
     private IUserEntityRepository userEntityRepo;
 
+    @Autowired
+    private HttpSession httpSession;
+
     public SessionModel getSessionModel() {
         AbstractAuthenticationToken auth = (AbstractAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
         Map<String, SessionModel> m = (Map<String, SessionModel>) auth.getDetails();
+
         sessionModel = m.get("sessionModel");
         return sessionModel;
     }
 
-    public void setSessionModel(SessionModel sessionModel) {
+    public SessionModel setSessionModel(SessionModel sessionModel) {
         final Authentication user = SecurityContextHolder.getContext().getAuthentication();
         SecurityContext sec = SecurityContextHolder.getContext();
         UserDetails userDetails = (UserDetails) sec.getAuthentication().getPrincipal();
@@ -48,16 +53,18 @@ public class UserSession  implements Serializable {
         AbstractAuthenticationToken auth = (AbstractAuthenticationToken)sec.getAuthentication();
         Map<String, SessionModel> m = new HashMap<String, SessionModel>();
         UserEntity userEntity = userEntityRepo.findByEmail(userDetails.getUsername());
-        sessionModel.setCompanyId(userEntity.getCompanyEntity().getCompanyId());
+       if(userEntity!=null) {
+           sessionModel.setCompanyId(userEntity.getCompanyEntity().getCompanyId());
+           sessionModel.setUserId(userEntity.getUserId());
+       }
         sessionModel.setUserType(UserType.valueOf(s));
-        sessionModel.setUserId(userEntity.getUserId());
 
         switch (UserType.valueOf(s)){
             case ADMIN:
                 sessionModel.setMenuType("Admin");
                 break;
             case SUPER_ADMIN:
-                sessionModel.setMenuType("Super_admin");
+                sessionModel.setMenuType(UserType.SUPER_ADMIN.name());
                 break;
 
             case NORMAL:
@@ -66,11 +73,14 @@ public class UserSession  implements Serializable {
 
         }
 
+        httpSession.setAttribute("sessionModel", sessionModel);
+
 
         m.put("sessionModel", sessionModel);
         auth.setDetails(m);
 
 
         this.sessionModel = sessionModel;
+        return sessionModel;
     }
 }

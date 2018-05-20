@@ -43,6 +43,7 @@ public class SuperAdminController {
     public String home(Model model) {
         CompanyModel companyModel = new CompanyModel();
         model.addAttribute("companyModel", companyModel);
+        model.addAttribute("companyFilterModel", superAdminService.getCompanyName());
         return "/super_admin/super_admin_home";
     }
 
@@ -58,9 +59,9 @@ public class SuperAdminController {
         String id = httpSession.getId();
         String name = (String) httpSession.getAttribute("name");
 
-       // attributes.addAttribute("message","updateSuccess");
-        attributes.addFlashAttribute("message","updateSuccess");
-        // superAdminService.saveCompany(companyModel);
-       return new RedirectView("./");
+        // attributes.addAttribute("message","updateSuccess");
+        attributes.addFlashAttribute("message", "updateSuccess");
+        superAdminService.saveCompany(companyModel);
+        return new RedirectView("./");
     }
 }

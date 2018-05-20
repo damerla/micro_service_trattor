@@ -64,9 +64,29 @@ public class AuthenticationController {
     @GetMapping("/")
     public String loginHome(){
        String  viewName = "forward:/home";
-        userSession.setSessionModel(new SessionModel());
+        final Authentication user = SecurityContextHolder.getContext().getAuthentication();
+        httpSession.getAttributeNames();
+        SecurityContext sec = SecurityContextHolder.getContext();
+        UserDetails userDetails = (UserDetails) sec.getAuthentication().getPrincipal();
+        Collection<? extends GrantedAuthority> detailsAuthorities = userDetails.getAuthorities();
+        String s = detailsAuthorities.toArray()[0].toString();
 
-        return "forward:/super-admin/";
+        AbstractAuthenticationToken auth = (AbstractAuthenticationToken)sec.getAuthentication();
+        Map<String, SessionModel> m = new HashMap<String, SessionModel>();
+        SessionModel sessionModel = new SessionModel();
+        sessionModel.setCompanyId(1);
+        sessionModel.setUserType(UserType.valueOf(s));
+        auth.setDetails(m);
+
+        m.put("sessionModel", sessionModel);
+         sessionModel = userSession.setSessionModel(new SessionModel());
+        if (sessionModel.getUserType().equals(UserType.ADMIN)) {
+                viewName = "forward:/dashBoard/";
+        } else if(sessionModel.getUserType().equals(UserType.SUPER_ADMIN)) {
+
+            viewName = "forward:/super-admin/";
+        }
+        return viewName;
     }
 }
 

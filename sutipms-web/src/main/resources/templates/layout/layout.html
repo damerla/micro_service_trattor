@@ -5,26 +5,32 @@
     <head>
         <title>Hello Spring Boot!</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-        <link href="../css/bootstrap.3.3.7.min.css" rel="stylesheet">
+        <link rel="stylesheet"  href="../css/bootstrap.3.3.7.min.css" />
         <link rel="shortcut icon" type="image/x-icon"
-              href="../images/favicon.ico"/>
-        <link href="../css/ssstyle.css" rel="stylesheet">
-        <link href="../css/font-awesome.min.css" rel="stylesheet">
-        <link href="../css/datepicker.css" rel="stylesheet">
-        <link href="../css/hrstyle.css" rel="stylesheet">
+              href="../images/favicon.ico" />
+        <link href="../css/ssstyle.css" rel="stylesheet" />
+        <link href="../css/datepicker.css" rel="stylesheet" />
+        <link href="../css/hrstyle.css" rel="stylesheet" />
         <link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">
-        <link href="../css/font-awesome.min.css" rel="stylesheet">
-        <link href="../css/datepicker.css" rel="stylesheet">
+        <link href="../css/font-awesome.min.css" rel="stylesheet" />
+        <link href="../css/datepicker.css" rel="stylesheet" />
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
         <!-- Include all compiled plugins (below), or include individual files as needed -->
         <script src="../js/jquery.3.3.1.min.js"></script>
         <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
         <script src="../js/bootstrap.3.3.7.min.js"></script>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
+        <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/css/bootstrap-select.min.css" />-->
 
+        <script type="text/javascript" src="js/bootstrap-multiselect.js"></script>
+        <!--<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">-->
+        <link href="../css/font-awesome.min.css" rel="stylesheet" />
         <script type="text/javascript" src="../js/bootstrap-filestyle.js"></script>
         <script type="text/javascript" src="../js/tooltip.js"></script>
         <script type="text/javascript" src="../js/common/common.js"></script>
+        <!--        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/bootstrap-select.min.js"></script>
+
+                <link rel="stylesheet" href="css/bootstrap-multiselect.css" type="text/css">-->
 
 
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -37,22 +43,26 @@
     <body>
         <!-- Header -->
             <div th:replace="fragment/super_admin_header :: super_admin_header"></div>
-        <!-- Menu -->
-            <div th:replace="fragment/super_admin_menu :: super_admin_menu"></div>
-            <div layout:fragment="content">
-                <p>Content goes here...</p>
-            </div>
-        <div sec:authorize="hasRole('ADMIN')">
-            This content is only shown to <b>administrators</b>.
-        </div>
-        <div sec:authorize="hasRole('SUPER_ADMIN')">
-            This content is only shown to <b>super</b>.
-        </div>
-        <!-- Footer-->
+        <!-- Header -->
 
-            <footer>
-                <div th:replace="fragment/footer :: footer">&copy; 2017 blog.codeleak.pl</div>
-            </footer>
+        <!-- Menu -->
+        <div th:switch="${session.sessionModel.getMenuType()}">
+            <div th:case="Admin">
+                <div th:replace="fragment/admin_menu :: admin_menu"></div>
+            </div>
+            <div th:case="SUPER_ADMIN">
+                  <div th:replace="fragment/super_admin_menu :: super_admin_menu"></div>
+            </div>
+        </div>
+        <!-- Menu -->
+        <div layout:fragment="content">
+        </div>
+
+        <!-- Footer-->
+        <footer>
+            <div th:replace="fragment/footer :: footer">&copy; 2017 blog.codeleak.pl</div>
+        </footer>
+        <!-- Footer-->
         </div>
     </body>
 </html>

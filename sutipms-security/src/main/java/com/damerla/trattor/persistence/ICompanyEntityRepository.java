@@ -5,6 +5,8 @@ import org.springframework.stereotype.Repository;
 
 import com.damerla.trattor.enties.CompanyEntity;
 
+import java.util.List;
+
 /**
  * 
  * @author Hari
@@ -14,5 +16,9 @@ import com.damerla.trattor.enties.CompanyEntity;
  */
 @Repository
 public interface ICompanyEntityRepository extends CrudRepository<CompanyEntity, Long> {
+
+    CompanyEntity findByCompanyId(Integer companyId);
+
+    List<CompanyEntity> findAll();
 
 }

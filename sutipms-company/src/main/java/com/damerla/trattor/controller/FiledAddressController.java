@@ -15,6 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.RedirectView;
 
 @Controller
 @RequestMapping("/filedAddress")
@@ -25,7 +27,8 @@ public class FiledAddressController {
 
     @GetMapping("/")
     public String home(Model model) {
-        return "";
+        model.addAttribute("fieldAddressModel", new FieldAddressModel());
+        return "company/filed_address";
     }
 
     @PostMapping("/")
@@ -34,9 +37,14 @@ public class FiledAddressController {
     }
 
     @PostMapping("/save")
-    public String create(@ModelAttribute FieldAddressModel customerModel, Model model) {
-        filedAddressService.saveOrUpdate(customerModel);
-        return "";
+    public RedirectView create(@ModelAttribute FieldAddressModel customerModel, Model model,  RedirectAttributes attributes) {
+        Boolean isSaveOrUpdate = filedAddressService.saveOrUpdate(customerModel);
+        if(isSaveOrUpdate){
+
+            attributes.addFlashAttribute("message", "updateSuccess");
+        }
+        // superAdminService.saveCompany(companyModel);
+        return new RedirectView("./");
     }
 
     @GetMapping("/status")

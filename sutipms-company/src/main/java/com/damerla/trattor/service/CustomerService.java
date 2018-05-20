@@ -6,19 +6,51 @@ package com.damerla.trattor.service;
  */
 
 
+import com.damerla.trattor.enties.AddressEntity;
+import com.damerla.trattor.enties.CustomerEntity;
+import com.damerla.trattor.enties.FieldAddressEntity;
 import com.damerla.trattor.enties.UserEntity;
 import com.damerla.trattor.exception.ChangeStatusException;
 import com.damerla.trattor.exception.SaveAndUpdateException;
 import com.damerla.trattor.model.CustomerModel;
+import com.damerla.trattor.model.KeyValue;
 import com.damerla.trattor.model.StatusType;
+import com.damerla.trattor.model.UserSession;
+import com.damerla.trattor.persistence.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-@Service
-public class CustomerService  implements  ICrudService{
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
-    private final static Logger log = LogManager.getLogger(TypeOfWorkService.class);
+@Service
+public class CustomerService implements ICrudService {
+
+    private final static Logger log = LogManager.getLogger(CustomerService.class);
+
+    @Autowired
+    private IAddressEntityRepository addressEntityRepo;
+
+
+    @Autowired
+    private IFieldAddressEntityRepository fieldAddressEntityRepo;
+
+    @Autowired
+    private ICompanyEntityRepository companyEntityRepo;
+
+    @Autowired
+    private UserSession userSession;
+
+    @Autowired
+    private IUserEntityRepository userEntityRepo;
+
+    @Autowired
+    private ICustomerEntityRepository customerEntityRepo;
 
     @Override
     public <T> Boolean saveOrUpdate(T model) {
@@ -27,25 +59,30 @@ public class CustomerService  implements  ICrudService{
         try {
             CustomerModel customerModel = (CustomerModel) model;
 
-            UserEntity userEntity = null;
+            CustomerEntity customerEntity = null;
+            UserEntity userEntity = userEntityRepo.findByUserId(userSession.getSessionModel().getUserId());
 
             if (customerModel.getCustomerId() == null) {
-                /*userEntity = new UserEntity();
-                userEntity.setModifiedDate(LocalDateTime.now());
-                userEntity.setCreatedDate(LocalDateTime.now());
-                userEntity.setActive(false);*/
+                customerEntity = new CustomerEntity();
+                customerEntity.setCreatedDate(LocalDateTime.now());
+                customerEntity.setActive(false);
+                customerEntity.setCrtBydUserId(userEntity);
             } else {
-              /*  userEntity = userEntityRepo.findByUserId(userModel.getUserId());
-                userEntity.setModifiedDate(LocalDateTime.now());*/
+                customerEntity = customerEntityRepo.findByCustomerId(customerModel.getCustomerId());
             }
+            customerEntity.setModifiedDate(LocalDateTime.now());
+            customerEntity.setFirstName(customerModel.getFirstName());
+            customerEntity.setSecondName(customerModel.getSecondName());
+            customerEntity.setModByUserId(userEntity);
 
-           /* userEntity.setEmail(userModel.getEmail());
-            userEntity.setFirstName(userModel.getFirstName());
-            userEntity.setSecondName(userModel.getLastName());
-            userEntity.setPhoneNo(userModel.getPhoneNo());
-            userEntity.setUserType(userModel.getSelectedUserType());
+            customerEntity.setAddressEntity(addressEntityRepo.findByAddressId(Integer.valueOf(customerModel.getSelectedAddress())));
+            Set<FieldAddressEntity> fieldAddressEntitySet = new HashSet<>();
+            for (String filedAddressId: customerModel.getSelectedFiledAddress()) {
+                fieldAddressEntitySet.add(fieldAddressEntityRepo.findByFieldAddressId(Integer.valueOf(filedAddressId)));
+            }
+            customerEntity.setFieldAddressEntities(fieldAddressEntitySet);
+            customerEntityRepo.save(customerEntity);
 
-            userEntityRepo.save(userEntity);*/
             isSaveOrUpdate = true;
 
         } catch (SaveAndUpdateException e) {
@@ -78,5 +115,34 @@ public class CustomerService  implements  ICrudService{
         }
         log.info("Start change Status Customer Entity ------------>");
         return isStatusChanged;
+
     }
+
+    public CustomerModel buildCustomerModel() {
+        log.info("Start build customer model ------------>");
+        CustomerModel customerModel = null;
+        try {
+            customerModel = new CustomerModel();
+            List<AddressEntity> addressEntities = addressEntityRepo.findByCompanyEntity(companyEntityRepo.findByCompanyId(userSession.getSessionModel().getCompanyId()));
+            List<KeyValue> address = new ArrayList<>();
+            for (AddressEntity addressEntity : addressEntities) {
+                address.add(new KeyValue(addressEntity.getAddressId().toString(), addressEntity.getCity()));
+            }
+            customerModel.setAddress(address);
+
+            List<KeyValue> filedAddress = new ArrayList<>();
+            List<FieldAddressEntity> fieldAddressEntities = fieldAddressEntityRepo.findByCompanyEntity(companyEntityRepo.findByCompanyId(userSession.getSessionModel().getCompanyId()));
+            for (FieldAddressEntity fieldAddressEntity:fieldAddressEntities) {
+                filedAddress.add(new KeyValue(fieldAddressEntity.getFieldAddressId().toString(), fieldAddressEntity.getFiledName()));
+            }
+            customerModel.setFiledAddress(filedAddress);
+
+
+        } catch (Exception e) {
+            log.error("Error while building customer model--------->", e);
+        }
+        log.info("End build cutomer model------------>");
+        return customerModel;
+    }
+
 }
